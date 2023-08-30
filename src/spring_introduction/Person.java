@@ -3,9 +3,11 @@ package spring_introduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("personBean")
+@Scope("singleton")
 public class Person {
 //    @Autowired
 //    @Qualifier("catBean")
@@ -27,7 +29,7 @@ public class Person {
     @Autowired
     @Qualifier("catBean")
     public void setPet(Pet pet) {
-        System.out.println("Class Person setter \"setPet\" was used");
+        System.out.println("Class Person setter \"setPet\" was used for DI");
         this.pet = pet;
     }
 
