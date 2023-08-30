@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("personBean")
-@Scope("singleton")
+//@Component("personBean")
+//@Scope("singleton")
 public class Person {
 //    @Autowired
 //    @Qualifier("catBean")
@@ -19,15 +19,16 @@ public class Person {
 
 //    @Autowired
 //    public Person(@Qualifier("catBean") Pet pet) {
-//        System.out.println("Person bean is created");
-//        this.pet = pet;
-//    }
-
-    public Person() {
-        System.out.println("Person bean is created with constructor without parameters");
+    public Person(Pet pet) {
+        System.out.println("Person bean is created");
+        this.pet = pet;
     }
-    @Autowired
-    @Qualifier("catBean")
+
+//    public Person() {
+//        System.out.println("Person bean is created with constructor without parameters");
+//    }
+//    @Autowired
+//    @Qualifier("catBean")
     public void setPet(Pet pet) {
         System.out.println("Class Person setter \"setPet\" was used for DI");
         this.pet = pet;
