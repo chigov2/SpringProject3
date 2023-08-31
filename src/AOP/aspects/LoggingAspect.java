@@ -3,29 +3,31 @@ package AOP.aspects;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAndSecurityAspect {
+@Order(1)
+public class LoggingAspect {
 
-    @Pointcut("execution(* AOP.UniversityLibrary.*(..))")
-    private void allMethodsFromUniLibrary() {
-    }
-
-    @Pointcut("execution(public void AOP.UniversityLibrary.returnMagazine())")
-    private void returnMagazineFromUniLibrary() {
-    }
-
-    @Pointcut("allMethodsFromUniLibrary() " +
-            "&& !returnMagazineFromUniLibrary()")
-    private void allWithoutReturnMagazine() {
-    }
-
-    @Before("allWithoutReturnMagazine()")
-    public void noReturnMagazine() {
-        System.out.println("noReturnMagazine");
-    }
+//    @Pointcut("execution(* AOP.UniversityLibrary.*(..))")
+//    private void allMethodsFromUniLibrary() {
+//    }
+//
+//    @Pointcut("execution(public void AOP.UniversityLibrary.returnMagazine())")
+//    private void returnMagazineFromUniLibrary() {
+//    }
+//
+//    @Pointcut("allMethodsFromUniLibrary() " +
+//            "&& !returnMagazineFromUniLibrary()")
+//    private void allWithoutReturnMagazine() {
+//    }
+//
+//    @Before("allWithoutReturnMagazine()")
+//    public void noReturnMagazine() {
+//        System.out.println("noReturnMagazine");
+//    }
 
 //    @Pointcut("execution(* AOP.UniversityLibrary.get*())")
 //    private void allGetMethodsUniversityLibrary(){};
@@ -53,11 +55,7 @@ public class LoggingAndSecurityAspect {
 //        System.out.println("beforeGetReturnLoggingAdvice: log #3");
 //    }
 
-
-//    @Pointcut("execution (* get*())")
-//    private void allGetMethods(){}
-
-    //метод будет вызываться до метода getBook
+//    метод будет вызываться до метода getBook
 //    @Before("execution(public void AOP.UniversityLibrary.getBook())")
 //    @Before("execution(public void getBook(String))")
 //    @Before("execution(public void getBook(*))")
@@ -67,19 +65,14 @@ public class LoggingAndSecurityAspect {
 //    @Before("execution(public void getBook(AOP.Book, ..))")
 //    @Before("execution (* get*())")
 
-//    @Before("allGetMethods()")
-//    public void beforeGetLoggingAdvice(){
-//        System.out.println("beforeGetBookAdvice: логирование - попытка получить книгу/журнал ");
-//    }
-//
+    @Before("AOP.aspects.MyPointCuts.allGetMethods()")
+    public void beforeGetLoggingAdvice(){
+        System.out.println("beforeGetBookAdvice: логирование - попытка получить книгу/журнал ");
+    }
+
 //    @Before("execution( *  returnBook())")
 //    public void beforeReturnBookAdvice(){
 //        System.out.println("beforeReturnBookAdvice: логирование - попытка вернуть книгу");
 //    }
-//
-//    @Before("allGetMethods()")
-//    public void beforeGetSecurityAdvice(){
-//        System.out.println("beforeGetSecurityAdvice: проверка прав на получение кгиги/журнала");
-//
-//    }
+
 }
