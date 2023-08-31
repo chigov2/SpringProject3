@@ -21,6 +21,7 @@
       <root url="jar://$PROJECT_DIR$/lib/aopalliance-1.0.jar!/" />
       <root url="file://$PROJECT_DIR$/lib" />
       <root url="jar://$PROJECT_DIR$/../../Downloads/javax.annotation-api-1.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jar/aspectjweaver-1.9.19.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
