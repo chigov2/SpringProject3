@@ -9,7 +9,49 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAndSecurityAspect {
 
+    @Pointcut("execution(* AOP.UniversityLibrary.*(..))")
+    private void allMethodsFromUniLibrary() {
+    }
 
+    @Pointcut("execution(public void AOP.UniversityLibrary.returnMagazine())")
+    private void returnMagazineFromUniLibrary() {
+    }
+
+    @Pointcut("allMethodsFromUniLibrary() " +
+            "&& !returnMagazineFromUniLibrary()")
+    private void allWithoutReturnMagazine() {
+    }
+
+    @Before("allWithoutReturnMagazine()")
+    public void noReturnMagazine() {
+        System.out.println("noReturnMagazine");
+    }
+
+//    @Pointcut("execution(* AOP.UniversityLibrary.get*())")
+//    private void allGetMethodsUniversityLibrary(){};
+//
+//    @Pointcut("execution(* return*()))")
+//    private void allReturnMethodsUniversityLibrary(){}
+//
+//    @Pointcut("allGetMethodsUniversityLibrary() " +
+//            "|| allReturnMethodsUniversityLibrary()")
+//    private void allGetAndReturnMethods(){}
+//
+//
+//    @Before("allGetMethodsUniversityLibrary()")
+//    public  void beforeGetLoggingAdvice(){
+//        System.out.println("beforeGetLoggingAdvice: log #1");
+//    }
+//
+//    @Before("allReturnMethodsUniversityLibrary()")
+//    public  void beforeReturnLoggingAdvice(){
+//        System.out.println("beforeReturnLoggingAdvice: log #2");
+//    }
+//
+//    @Before("allGetAndReturnMethods()")
+//    public void beforeGetReturnLoggingAdvice(){
+//        System.out.println("beforeGetReturnLoggingAdvice: log #3");
+//    }
 
 
 //    @Pointcut("execution (* get*())")
