@@ -1,8 +1,11 @@
 package AOP.aspects;
 
+import AOP.Book;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -64,11 +67,43 @@ public class LoggingAspect {
 //    @Before("execution(public void get*(..))")
 //    @Before("execution(public void getBook(AOP.Book, ..))")
 //    @Before("execution (* get*())")
+//    @Before("AOP.aspects.MyPointCuts.allAddMethods()")
+//    public void beforeGetLoggingAdvice(){
+//        System.out.println("beforeGetBookAdvice: логирование - попытка получить книгу/журнал ");
+//        System.out.println("--------------------------------------");
+//    }
 
-    @Before("AOP.aspects.MyPointCuts.allGetMethods()")
-    public void beforeGetLoggingAdvice(){
-        System.out.println("beforeGetBookAdvice: логирование - попытка получить книгу/журнал ");
+    @Before("AOP.aspects.MyPointCuts.allAddMethods()")
+    public void beforeAddLoggingAdvice(JoinPoint joinPoint) {
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("methodSignature: " + methodSignature);
+        System.out.println("methodSignature.getMethod(): " + methodSignature.getMethod());
+        System.out.println("methodSignature.getReturnType(): " + methodSignature.getReturnType());
+        System.out.println("methodSignature.getName(): " + methodSignature.getName());
+
+        //для addbook будем выводить параметры, а для addMagazine нет
+        if (methodSignature.getName().equals("addBook")){
+            Object[] arguments = joinPoint.getArgs();
+            for (Object object : arguments){
+                if (object instanceof Book){
+                    Book myBook = (Book) object;
+                    System.out.println("Инфо о книге: " + myBook.getName() +
+                            "\n" + myBook.getAuthor() + "\n" + myBook.getYearOfPublication());
+                }
+                else if (object instanceof String){
+                    String name = (String) object;
+                    System.out.println("Имя пользователя: " + name);
+                }
+            }
+        }
+
+        System.out.println("beforeAddBookAdvice: логирование - попытка получить книгу/журнал ");
+        System.out.println("--------------------------------------");
+
+
     }
+
 
 //    @Before("execution( *  returnBook())")
 //    public void beforeReturnBookAdvice(){
